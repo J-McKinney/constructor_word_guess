@@ -1,1 +1,5 @@
-blah blah blah
+var Letter = require("./letter.js");
+
+function Word(correctWord) {
+    
+}
