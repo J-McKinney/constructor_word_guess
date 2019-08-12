@@ -1,12 +1,12 @@
-var word = require("./word");
+var Word = require("./Word.js");
 var inquirer = require("inquirer");
 var fs = require("fs");
 
-var secretWords = ["KETELONE", "GREYGOOSE", "CIROC", "BELVEDERE", "REYKA", "CHOPIN", "SMIRNOFF", "ABSOLUT", "HANGERONE",
-    "STOLICHNAYA", "SKYY", "PINNACLE", "TITOS", "DIXIE", "SVEDKA", "TOVARITCH", "WHEATLEY", "CHASE", "WYBOROWA",
-    "VALT", "KIRKLAND", "DEEPEDDY", "MIDWEST", "WAVE", "SILVER", "SELFISH", "WOLTZSL"];
+var words = ["ketelone", "greygoose", "ciroc", "belvedere", "reyka", "chopin", "smirnoff", "absolut", "hangerone",
+    "stolichnaya", "skyy", "pinnacle", "titos", "dixie", "svedka", "tovaritch", "wheatley", "chase", "wyborowa",
+    "valt", "kirkland", "deepeddy", "midwest", "wave", "silver", "selfish", "woltzsl"];
 
-var correctWord = new Word(secretWords[Math.floor(Math.random() * secretWords.length)]);
+var correctWord = new Word(words[Math.floor(Math.random() * words.length)]);
 correctWord.buildingLetter();
 var guessesLeft = 13;
 var triesLeft = [];
@@ -18,12 +18,12 @@ console.log("\nWell, that's the hint...");
 function endGame(results) {
     if (results === "win") {
         console.log("\nYOU WIN!!!");
-        console.log("\nYou Guessed " + correctWord.correctWord.toUpperCase() + " " + " with " + (guessesLeft) + " guesses left. ")
+        console.log("\nYou Guessed " + correctWord.correctWord.toUpperCase() + " " + " with " + (guessesLeft) + " guesses left. ");
     } else {
         console.log("\nYOU LOSE!!!");
         console.log("\nThe word was " + correctWord.correctWord + ".");
     }
-    correctWord = new Word(secretWords[Math.floor(Math.random() * secretWords.length)]);
+    correctWord = new Word(words[Math.floor(Math.random() * words.length)]);
     correctWord.buildingLetter();
     guessesLeft = 13;
     triesLeft = [];
@@ -40,14 +40,14 @@ function endGame(results) {
         } else {
             console.log("\nLet me know when you want to play again...");
             return;
-        };
-    });
-};
+        }
+    })
+}
 
 function game() {
     inquirer.prompt([
         {
-            name: "Take a guess",
+            name: "guess",
             prefix: "",
             message: "\nWord: " + correctWord.update() + "\nGuesses Left: " + guessesLeft + "\nTries Left: " + triesLeft.join(" ") + "\nGuess another letter: "
         }
@@ -64,12 +64,16 @@ function game() {
         };
         if (!correctWord.correctWord.includes(data.guess)) {
             guessesLeft--;
-        }
+        };
         triesLeft.push(data.guess);
         for (var i = 0; i < correctWord.letters.length; i++) {
             correctWord.letters[i].check(data.guess);
+        }
+        if (correctWord.update().toLowerCase() == correctWord.correctWord.toLowerCase()) {
+            endGame("win");
+            return;
         };
-        if (correctWord.update().toLowerCase() === correctWord.correctWord.toLowerCase()) {
+        if (guessesLeft == 0) {
             endGame("loss");
             return;
         };
