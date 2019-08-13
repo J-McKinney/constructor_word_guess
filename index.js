@@ -1,3 +1,4 @@
+// require('dotenv').config()
 var Word = require("./Word.js");
 var inquirer = require("inquirer");
 var fs = require("fs");
@@ -9,7 +10,7 @@ var words = ["ketelone", "greygoose", "ciroc", "belvedere", "reyka", "chopin", "
 var correctWord = new Word(words[Math.floor(Math.random() * words.length)]);
 correctWord.buildingLetter();
 var guessesLeft = 13;
-var triesLeft = [];
+var triesLeft = []; 
 
 console.log("\nDo you want to play a word game?");
 console.log("\nHow well do you know your brand vodkas?");
@@ -40,9 +41,9 @@ function endGame(results) {
         } else {
             console.log("\nLet me know when you want to play again...");
             return;
-        }
-    })
-}
+        };
+    });
+};
 
 function game() {
     inquirer.prompt([

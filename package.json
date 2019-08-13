@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/SoLiD513/constructor_word_guess#readme",
   "dependencies": {
+    "dotenv": "^8.0.0",
     "fs": "0.0.1-security",
     "inquirer": "^6.5.1"
   }
