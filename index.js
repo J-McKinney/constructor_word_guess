@@ -7,10 +7,11 @@ var words = ["ketelone", "greygoose", "ciroc", "belvedere", "reyka", "chopin", "
     "stolichnaya", "skyy", "pinnacle", "titos", "dixie", "svedka", "tovaritch", "wheatley", "chase", "wyborowa",
     "valt", "kirkland", "deepeddy", "midwest", "wave", "silver", "selfish", "woltzsl"];
 
+
 var correctWord = new Word(words[Math.floor(Math.random() * words.length)]);
 correctWord.buildingLetter();
 var guessesLeft = 13;
-var triesLeft = []; 
+var triesLeft = [];
 
 console.log("\nDo you want to play a word game?");
 console.log("\nHow well do you know your brand vodkas?");
@@ -52,7 +53,7 @@ function game() {
             prefix: "",
             message: "\nWord: " + correctWord.update() + "\nGuesses Left: " + guessesLeft + "\nTries Left: " + triesLeft.join(" ") + "\nGuess another letter: "
         }
-    ]).then(function(data) {
+    ]).then(function (data) {
         if (data.guess === "") {
             console.log("\nYou need to enter a letter.");
             return game();
